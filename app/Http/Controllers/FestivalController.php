@@ -12,4 +12,9 @@ class FestivalController extends Controller
         return view('festivals.index')->with(['reviews' => $festival->getByFestival()]);
         return $festival->get();
     }
+    
+    public function edit(Festival $festival)
+    {
+        
+    }
 }

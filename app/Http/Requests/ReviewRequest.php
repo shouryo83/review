@@ -19,4 +19,16 @@ class ReviewRequest extends FormRequest
             'review.artist' => 'required|string|max:100',
         ];
     }
+    
+    public function messages()
+    {
+        return [
+            'title.required' => 'タイトルを入力してください',
+            'title.max' => 'タイトルは100文字以内で入力してください',
+            'body.requored' => '本文を入力してください',
+            'body.max' => '本文は4000文字以内で入力してください',
+            'artist.required' => 'お目当てのアーティストを入力してください',
+            'artist.max' => 'お目当てのアーティストは100文字以内で入力してください',
+        ];
+    }
 }

@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Review;
 use App\Models\Festival;
+use App\Models\Comment;
+use App\Models\User;
 use App\Http\Requests\ReviewRequest;
 
 class ReviewController extends Controller
 {
     public function index(Review $review)
     {
-        return view('reviews.index')->with(['reviews' => $review->getPaginateByLimit(2)]);
+        return view('reviews.index')->with(['reviews' => $review->getPaginateByLimit(4)]);
     }
     
     public function show(Review $review)

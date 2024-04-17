@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\FestivalController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,14 +34,15 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => ['auth']], function(){
     Route::get('/', [ReviewController::class, 'index'])->name('index');
     Route::get('/reviews/create', [ReviewController::class, 'create']);
-    Route::get('/reviews/{review}', [ReviewController::class ,'show']); 
+    Route::get('/reviews/{review}', [ReviewController::class ,'show'])->name('reviews.show');
     Route::post('/reviews', [ReviewController::class, 'store']);
     Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit']);
     Route::put('/reviews/{review}', [ReviewController::class, 'update']);
     Route::get('/festivals/{festival}', [FestivalController::class, 'index']);
     Route::get('/user', [UserController::class, 'index']);
     Route::delete('/reviews/{review}', [ReviewController::class, 'delete']);
-    Route::post('/reviews/{comment}', [CommentController::class, 'store']);
+    Route::post('/reviews/{review}/comments', [CommentController::class, 'store']);
+    Route::get('/comments/{comment_id}', [CommentController::class, 'delete']);
     
 });
 
