@@ -14,7 +14,7 @@
                     <input type='text' name='review[title]' value="{{ $review->title }}">
                 </div>
                 <div class='content_body'>
-                    <h2>本文</h2>
+                    <h2>感想</h2>
                     <input type='text' name='review[body]' value="{{ $review->body }}">
                 </div> 
                 <div class="festival">

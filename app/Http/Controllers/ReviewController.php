@@ -16,9 +16,9 @@ class ReviewController extends Controller
         return view('reviews.index')->with(['reviews' => $review->getPaginateByLimit(4)]);
     }
     
-    public function show(Review $review)
+    public function show(Review $review, Comment $comment)
     {
-        return view('reviews.show')->with(['review' => $review]);
+        return view('reviews.show')->with(['review' => $review, 'comments' => $comment->where('review_id', $review->id)->get()]);
     }
     
     public function create(Festival $festival)

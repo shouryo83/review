@@ -16,7 +16,7 @@
                                 <h2>タイトル：<a href="/reviews/{{ $review->id }}">{{ $review->title }}</a></h2>
                                 <h2>参戦したフェス：<a href="/festivals/{{ $review->festival->id }}">{{ $review->festival->name }}({{ $review->festival->date }})</a></h2>
                                 <p class='artist'>目当てのアーティスト：{{ $review->artist }}</p>
-                                <p class='body'>本文：{{ $review->body }}</p>
+                                <p class='body'>感想：{{ $review->body }}</p>
                                 <form action="/reviews/{{ $review->id }}" id="form_{{ $review->id }}" method="post">
                                     @csrf
                                     @method('DELETE')
