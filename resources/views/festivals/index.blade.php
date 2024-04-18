@@ -4,7 +4,6 @@
             {{ __('JAPAN JAM') }} 
         </h2>
     </x-slot>
-        <h1>Review Name</h1>
         <a href='/reviews/create'>[作成]</a>
             @foreach ($reviews as $review)
                 <div class='reviews'>
@@ -12,7 +11,7 @@
                     <h2>タイトル：<a href="/reviews/{{ $review->id }}">{{ $review->title }}</a></h2>
                     <a>参戦したフェス：</a><a href="/festivals/{{ $review->festival->id }}">{{ $review->festival->name }}({{ $review->festival->date }})</a>
                     <p class='artist'>目当てのアーティスト：{{ $review->artist }}</p>
-                    <p class='body'>本文：{{ $review->body }}</p>
+                    <p class='body'>感想：{{ $review->body }}</p>
                     <form action="/reviews/{{ $review->id }}" id="form_{{ $review->id }}" method="post">
                         @csrf
                         @method('DELETE')
