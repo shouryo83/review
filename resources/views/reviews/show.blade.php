@@ -23,11 +23,24 @@
             @if ($comments->count())
               @foreach($comments as $comment)
                 <p>コメント：{{ $comment->comment }} 投稿者：{{ $comment->user->name }}</p>
+                <form action="/comments/{{ $comment->id }}" id="form_{{ $comment->id }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" onclick="deleteComment({{ $comment->id }})">[削除]</button>
+                </form>
               @endforeach
             @else
               No comments
             @endif
-
+            <script>
+                function deleteComment(id) {
+                    'use strict'
+                    
+                    if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
+                        document.getElementById(`form_${id}`).submit();
+                    }
+                }
+            </script>
             <form action ="/reviews/{{ $review->id }}/comments" method="POST">
                 @csrf
                 <div class="comment">

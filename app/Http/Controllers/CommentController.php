@@ -20,10 +20,9 @@ class CommentController extends Controller
         return redirect('/reviews/' . $review->id)->with(['comment' => $comment]);
     }
     
-    public function delete(Request $request)
+    public function delete(Comment $comment)
     {
-        $comment = Comment::find($request->comment_id);
         $comment->delete();
-        return redirect('/');
+        return back();
     }
 }
