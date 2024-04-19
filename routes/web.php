@@ -42,7 +42,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/user', [UserController::class, 'index']);
     Route::delete('/reviews/{review}', [ReviewController::class, 'delete']);
     Route::post('/reviews/{review}/comments', [CommentController::class, 'store']);
-    Route::get('/comments/{comment_id}', [CommentController::class, 'delete']);
+    Route::delete('/comments/{comment}', [CommentController::class, 'delete'])->name('comments.delete');
     
 });
 
