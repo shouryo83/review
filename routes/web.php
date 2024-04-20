@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +44,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::delete('/reviews/{review}', [ReviewController::class, 'delete']);
     Route::post('/reviews/{review}/comments', [CommentController::class, 'store']);
     Route::delete('/comments/{comment}', [CommentController::class, 'delete'])->name('comments.delete');
-    
+    Route::get('/reviews/like/{review}', [LikeController::class, 'like'])->name('like');
+    Route::get('/reviews/unlike/{review}', [LikeController::class, 'unlike'])->name('unlike');
 });
 
 require __DIR__.'/auth.php';

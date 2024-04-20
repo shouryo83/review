@@ -15,7 +15,7 @@
                 <h2>参戦したフェス</h2>
                 <select name="review[festival_id]">
                     @foreach($festivals as $festival)
-                        <option value="{{ $festival->id }}">{{ $festival->name }}</option>
+                        <option value="{{ $festival->id }}">{{ $festival->name }}({{ $festival->date }})</option>
                     @endforeach
                 </select>
             <div class="artist">

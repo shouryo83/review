@@ -17,6 +17,7 @@
                                 <h2>参戦したフェス：<a href="/festivals/{{ $review->festival->id }}">{{ $review->festival->name }}({{ $review->festival->date }})</a></h2>
                                 <p class='artist'>目当てのアーティスト：{{ $review->artist }}</p>
                                 <p class='body'>感想：{{ $review->body }}</p>
+                                <h2><a href="/reviews/{{ $review->id }}">いいね・コメントする</a> いいね({{ $review->likes->count() }}) コメント({{ $review->comments->count() }})</h2>
                                 <form action="/reviews/{{ $review->id }}" id="form_{{ $review->id }}" method="post">
                                     @csrf
                                     @method('DELETE')
@@ -24,6 +25,7 @@
                                 </form>
                             </div>
                         @endforeach
+
                     <div class='paginate'>
                         {{ $reviews->links() }}
                     </div>

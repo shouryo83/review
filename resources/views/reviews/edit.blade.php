@@ -1,10 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('編集') }}
+            {{ __('投稿編集') }}
         </h2>
     </x-slot>
-        <h1 class="title">編集画面</h1>
         <div class="content">
             <form action="/reviews/{{ $review->id }}" method="POST">
                 @csrf
@@ -17,17 +16,13 @@
                     <h2>感想</h2>
                     <input type='text' name='review[body]' value="{{ $review->body }}">
                 </div> 
-                <div class="festival">
-                <h2>参戦したフェス</h2>
-              <!--  <select name="review[festival_id]">
-                    @foreach($festivals as $festival)
-                        <option value="{{ $festival->id }}">{{ $festival->name }}</option>
-                    @endforeach -->
-                </select>
-                </div>
-                <div class="festival">
+                <div class='content_festival'>
                     <h2>参戦したフェス</h2>
-                    <input type='text' name='review[festival_id]' value="{{ $review->festival_id }}">
+                    <select name="review[festival_id]">
+                        @foreach($festivals as $festival)
+                            <option value="{{ $festival->id }}">{{ $festival->name }}({{ $festival->date }})</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class='content_artist'>
                     <h2>目当てのアーティスト</h2>

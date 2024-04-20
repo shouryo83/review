@@ -19,6 +19,23 @@
         <div class="artist">
             <p>目当てのアーティスト：{{ $review->artist }}</p>
         </div>
+        <div class="like">
+          @if($like)
+            <a href="{{ route('unlike', $review) }}" class="btn btn-success btn-sm">
+              いいね！
+              <span class="badge">
+                {{ $review->likes->count() }}
+              </span>
+            </a>
+          @else
+            <a href="{{ route('like', $review) }}" class="btn btn-secondary btn-sm">
+              いいね！
+              <span class="badge">
+                {{ $review->likes->count() }}
+              </span>
+            </a>
+          @endif
+        </div>
         <div class="comment">
             @if ($comments->count())
               @foreach($comments as $comment)
