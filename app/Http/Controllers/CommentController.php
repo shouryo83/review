@@ -25,4 +25,16 @@ class CommentController extends Controller
         $comment->delete();
         return back();
     }
+    
+    public function edit(Comment $comment, Review $review)
+    {
+        return view('comments.edit')->with(['comment' => $comment, 'review' => $review]);
+    }
+    
+    public function update(CommentRequest $request, Comment $comment, Review $review)
+    {
+        $comment->comment = $request->comment;
+        $comment->save();
+        return redirect('/reviews/' . $comment->review->id)->with(['comment' => $comment]);
+    }
 }

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('投稿一覧') }}
+            {{ __('ロッキングオン主催フェス口コミ') }}
         </h2>
     </x-slot>
     
@@ -38,9 +38,7 @@
                             }
                         }
                     </script>
-                 
-                    {{ Auth::user()->name }}
-                    
+                    <a href='/spotify/redirect'>[過去の出演者]</a>
                 </div>
             </div>
         </div>

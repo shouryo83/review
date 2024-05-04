@@ -1,7 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
+        <a href="/">[戻る]</a>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('JAPAN JAM') }} 
+           {{ $festival->name }}({{ $festival->date }})
         </h2>
     </x-slot>
         <a href='/reviews/create'>[作成]</a>

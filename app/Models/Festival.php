@@ -17,5 +17,10 @@ class Festival extends Model
         return $this->reviews()->with('festival')->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
     
+    protected $fillable = [
+        'name',
+        'date',
+    ];
+    
     use HasFactory;
 }

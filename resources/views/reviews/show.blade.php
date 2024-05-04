@@ -1,5 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
+        <a href="/">[戻る]</a>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ $review->title }}
         </h2>
@@ -7,17 +8,19 @@
         <div class="edit">
             <a href="/reviews/{{ $review->id }}/edit">[編集]</a>
         </div>
-        <div class="content">
-            <div class="content_review">
-                <h3>感想：</h3>
-                <p>{{ $review->body }}</p>
-            </div>
+        <div class="review_user">
+          <p>投稿者：{{ $review->user->name }}</p>
         </div>
         <div class="festival">
             <p>参戦したフェス：<a href="/festivals/{{ $review->festival_id }}">{{ $review->festival->name }}({{ $review->festival->date }})</a></p>
         </div>
         <div class="artist">
             <p>目当てのアーティスト：{{ $review->artist }}</p>
+        </div>
+        <div class="body">
+            <div class="body">
+                <p>感想：{{ $review->body }}</p>
+            </div>
         </div>
         <div class="like">
           @if($like)
@@ -43,7 +46,8 @@
                 <form action="/comments/{{ $comment->id }}" id="form_{{ $comment->id }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="button" onclick="deleteComment({{ $comment->id }})">[削除]</button>
+                    <button type="button" onclick="deleteComment({{ $comment->id }})">[コメント削除]</button>
+                    <a href="/comments/{{ $comment->id }}/edit">[コメント編集]</a>
                 </form>
               @endforeach
             @else
@@ -65,11 +69,7 @@
                     <textarea name="comment" id="comment" cols="50" rows="5" placeholder="私も参戦しました！">{{ old('comment') }}</textarea><br>
                     <p class="comment_error" style="color:red">{{ $errors->first('comment') }}</p>
                 </div>
-                <input type="submit" value="[コメント投稿]"/>
+                <input type="submit" value="[コメント投稿]">
             </form>
-        </div>
-        
-        <div class="footer">
-            <a href="/">[戻る]</a>
         </div>
 </x-app-layout>
