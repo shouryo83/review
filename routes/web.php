@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\FestivalController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FestivalController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SpotifyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,9 +46,15 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/user', [UserController::class, 'index']);
     Route::delete('/reviews/{review}', [ReviewController::class, 'delete']);
     Route::post('/reviews/{review}/comments', [CommentController::class, 'store']);
+    Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+    Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
     Route::delete('/comments/{comment}', [CommentController::class, 'delete'])->name('comments.delete');
     Route::get('/reviews/like/{review}', [LikeController::class, 'like'])->name('like');
     Route::get('/reviews/unlike/{review}', [LikeController::class, 'unlike'])->name('unlike');
+    Route::get('/spotify/redirect', [AuthController::class, 'redirectToSpotify']);
+    Route::get('/spotify/callback', [AuthController::class, 'handleSpotifyCallback']);
+    Route::get('/playlists/index', [SpotifyController::class, 'getPlaylists']);
+    Route::get('/playlists/{id}', [PlaylistController::class, 'show'])->name('playlists.show');
 });
 
 require __DIR__.'/auth.php';
