@@ -17,7 +17,24 @@
                                 <h2>参戦したフェス：<a href="/festivals/{{ $review->festival->id }}">{{ $review->festival->name }}({{ $review->festival->date }})</a></h2>
                                 <p class='artist'>目当てのアーティスト：{{ $review->artist }}</p>
                                 <p class='body'>感想：{{ $review->body }}</p>
-                                <h2><a href="/reviews/{{ $review->id }}">いいね・コメントする</a> いいね({{ $review->likes->count() }}) コメント({{ $review->comments->count() }})</h2>
+                                <div class='like'>
+                                    @if($review->is_liked_by_auth_user())
+                                        <a href="{{ route('unlike', ['id' => $review->id]) }}" class="btn btn-success btn-sm">
+                                            いいね！
+                                          <span class="badge">
+                                            {{ $review->likes->count() }}
+                                          </span>
+                                        </a>
+                                    @else
+                                        <a href="{{ route('like', ['id' => $review->id]) }}" class="btn btn-secondary btn-sm">
+                                            いいね！
+                                          <span class="badge">
+                                            {{ $review->likes->count() }}
+                                          </span>
+                                        </a>
+                                    @endif
+                                </div>
+                                <h2><a href="/reviews/{{ $review->id }}" class="">[コメントする]</a> コメント数({{ $review->comments->count() }})</h2>
                                 <form action="/reviews/{{ $review->id }}" id="form_{{ $review->id }}" method="post">
                                     @csrf
                                     @method('DELETE')

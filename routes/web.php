@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
 Route::group(['middleware' => ['auth']], function(){
     Route::get('/', [ReviewController::class, 'index'])->name('index');
     Route::get('/reviews/create', [ReviewController::class, 'create']);
+    Route::get('/dates?{name}', [ReviewController::class, 'getDates']);
     Route::get('/reviews/{review}', [ReviewController::class ,'show'])->name('reviews.show');
     Route::post('/reviews', [ReviewController::class, 'store']);
     Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit']);
@@ -49,8 +50,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
     Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
     Route::delete('/comments/{comment}', [CommentController::class, 'delete'])->name('comments.delete');
-    Route::get('/reviews/like/{review}', [LikeController::class, 'like'])->name('like');
-    Route::get('/reviews/unlike/{review}', [LikeController::class, 'unlike'])->name('unlike');
+    Route::get('review/like/{id}', [ReviewController::class, 'like'])->name('like');
+    Route::get('review/unlike/{id}', [ReviewController::class, 'unlike'])->name('unlike');
     Route::get('/spotify/redirect', [AuthController::class, 'redirectToSpotify']);
     Route::get('/spotify/callback', [AuthController::class, 'handleSpotifyCallback']);
     Route::get('/playlists/index', [SpotifyController::class, 'getPlaylists']);
