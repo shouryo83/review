@@ -18,6 +18,30 @@
                         <option value="{{ $festival->id }}">{{ $festival->name }}({{ $festival->date }})</option>
                     @endforeach
                 </select>
+                <select id="festival-select">
+                    @foreach ($festivals as $festival)
+                        <option value="{{ $festival->name }}_{{ $festival->year }}">{{ $festival->name }} {{ $festival->year }}</option>
+                    @endforeach
+                </select>
+                <select id="date-select">
+
+                </select>
+                <script>
+document.getElementById('festival-select').addEventListener('change', function() {
+    var selected = this.value.split('_');
+    fetch('/dates?name=' + selected[0] + '&year=' + selected[1])
+        .then(response => response.json())
+        .then(data => {
+            var dateSelect = document.getElementById('date-select');
+            dateSelect.innerHTML = '';
+            data.forEach(function(date) {
+                var option = new Option(date.date, date.date);
+                dateSelect.appendChild(option);
+            });
+        });
+});
+</script>
+
             <div class="artist">
                 <h2>お目当てのアーティスト</h2>
                 <input type="text" name="review[artist]" placeholder="" value="{{ old('review.artist') }}"/>

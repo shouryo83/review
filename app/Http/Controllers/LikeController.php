@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
-    public function like(Request $request, Like $like, Review $review)
+    public function like(Request $request, Review $review)
     {
+        $like = New Like();
         $like->review_id = $review->id;
         $like->user_id = Auth::user()->id;
         $like->save();

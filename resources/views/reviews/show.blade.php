@@ -22,19 +22,19 @@
                 <p>感想：{{ $review->body }}</p>
             </div>
         </div>
-        <div class="like">
-          @if($like)
-            <a href="{{ route('unlike', $review) }}" class="btn btn-success btn-sm">
+        <div class='like'>
+          @if($review->is_liked_by_auth_user())
+            <a href="{{ route('unlike', ['id' => $review->id]) }}" class="btn btn-success btn-sm">
               いいね！
               <span class="badge">
                 {{ $review->likes->count() }}
               </span>
             </a>
           @else
-            <a href="{{ route('like', $review) }}" class="btn btn-secondary btn-sm">
+            <a href="{{ route('like', ['id' => $review->id]) }}" class="btn btn-secondary btn-sm">
               いいね！
               <span class="badge">
-                {{ $review->likes->count() }}
+               {{ $review->likes->count() }}
               </span>
             </a>
           @endif
