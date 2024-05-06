@@ -22,12 +22,14 @@ class CommentController extends Controller
     
     public function delete(Comment $comment)
     {
+        $this->authorize('delete', $comment);
         $comment->delete();
         return back();
     }
     
     public function edit(Comment $comment, Review $review)
     {
+        $this->authorize('edit', $comment);
         return view('comments.edit')->with(['comment' => $comment, 'review' => $review]);
     }
     

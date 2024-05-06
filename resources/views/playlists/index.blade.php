@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <a href="/">[戻る]</a>
+        <button type="button" onClick="history.back()">[戻る]</button>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
            過去の出演者
         </h2>

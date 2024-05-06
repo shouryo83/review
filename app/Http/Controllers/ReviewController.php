@@ -10,13 +10,13 @@ use App\Models\User;
 use App\Models\Like;
 use App\Http\Requests\ReviewRequest;
 use Illuminate\Support\Facades\Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class ReviewController extends Controller
 {
     public function index(Review $review)
     {
-        return view('reviews.index')->with(['reviews' => $review->getPaginateByLimit(4)]);
+        return view('reviews.index')->with(['reviews' => $review->getPaginateByLimit(5)]);
     }
     
     public function show(Review $review, Comment $comment)
@@ -55,6 +55,7 @@ class ReviewController extends Controller
     
     public function edit(Review $review, Festival $festival)
     {
+        $this->authorize('edit', $review);
         return view('reviews.edit')->with(['review' => $review, 'festivals' => $festival->get()]);
     }
     
@@ -68,15 +69,11 @@ class ReviewController extends Controller
     
     public function delete(Review $review)
     {
+        $this->authorize('delete', $review);
         $review->delete();
         return redirect('/');
     }
-    
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified'])->only(['like', 'unlike']);
-    }
-    
+
     public function like($id)
     {
         Like::create([

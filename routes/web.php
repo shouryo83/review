@@ -52,7 +52,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::delete('/comments/{comment}', [CommentController::class, 'delete'])->name('comments.delete');
     Route::get('review/like/{id}', [ReviewController::class, 'like'])->name('like');
     Route::get('review/unlike/{id}', [ReviewController::class, 'unlike'])->name('unlike');
-    Route::get('/spotify/redirect', [AuthController::class, 'redirectToSpotify']);
+    Route::get('/spotify/redirect', [AuthController::class, 'redirectToSpotify'])->name('spotify.redirect');
     Route::get('/spotify/callback', [AuthController::class, 'handleSpotifyCallback']);
     Route::get('/playlists/index', [SpotifyController::class, 'getPlaylists']);
     Route::get('/playlists/{id}', [PlaylistController::class, 'show'])->name('playlists.show');
