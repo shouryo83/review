@@ -35,11 +35,13 @@
                                     @endif
                                 </div>
                                 <h2><a href="/reviews/{{ $review->id }}" class="">[コメントする]</a> コメント数({{ $review->comments->count() }})</h2>
-                                <form action="/reviews/{{ $review->id }}" id="form_{{ $review->id }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" onclick="deleteReview({{ $review->id }})">[削除]</button>
-                                </form>
+                                @can('delete', $review)
+                                    <form action="/reviews/{{ $review->id }}" id="form_{{ $review->id }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" onclick="deleteReview({{ $review->id }})">[削除]</button>
+                                    </form>
+                                @endcan
                             </div>
                         @endforeach
 
@@ -55,7 +57,6 @@
                             }
                         }
                     </script>
-                    <a href='/spotify/redirect'>[過去の出演者]</a>
                 </div>
             </div>
         </div>

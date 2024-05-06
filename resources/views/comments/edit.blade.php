@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <a href="/reviews/{{ $comment->review->id }}">[戻る]</a>
+        <button type="button" onClick="history.back()">[戻る]</button>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('コメント編集') }}
         </h2>

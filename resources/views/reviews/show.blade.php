@@ -1,13 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <a href="/">[戻る]</a>
+        <button type="button" onClick="history.back()">[戻る]</button>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ $review->title }}
         </h2>
     </x-slot>
-        <div class="edit">
-            <a href="/reviews/{{ $review->id }}/edit">[編集]</a>
-        </div>
+        @can('edit', $review)
+          <div class="edit">
+              <a href="/reviews/{{ $review->id }}/edit">[編集]</a>
+          </div>
+        @endcan
         <div class="review_user">
           <p>投稿者：{{ $review->user->name }}</p>
         </div>
@@ -43,12 +45,16 @@
             @if ($comments->count())
               @foreach($comments as $comment)
                 <p>コメント：{{ $comment->comment }} 投稿者：{{ $comment->user->name }}</p>
+                @can('edit', $comment)
+                @can('delete', $comment)
                 <form action="/comments/{{ $comment->id }}" id="form_{{ $comment->id }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="button" onclick="deleteComment({{ $comment->id }})">[コメント削除]</button>
                     <a href="/comments/{{ $comment->id }}/edit">[コメント編集]</a>
                 </form>
+                @endcan
+                @endcan
               @endforeach
             @else
               No comments

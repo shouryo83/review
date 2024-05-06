@@ -1,9 +1,10 @@
 <x-app-layout>
         <x-slot name="header">
+        <button type="button" onClick="history.back()">[戻る]</button>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('投稿作成') }}
+            {{ '投稿作成' }}
         </h2>
-    </x-slot>
+        </x-slot>
         <form action="/reviews" method="POST">
             @csrf
             <div class="title">
@@ -13,11 +14,11 @@
             </div>
             <div class="festival">
                 <h2>参戦したフェス</h2>
-                <select name="review[festival_id]">
-                    @foreach($festivals as $festival)
-                        <option value="{{ $festival->id }}">{{ $festival->name }}({{ $festival->date }})</option>
-                    @endforeach
-                </select>
+                <!--<select name="review[festival_id]">-->
+                <!--    @foreach($festivals as $festival)-->
+                <!--        <option value="{{ $festival->id }}">{{ $festival->name }}({{ $festival->date }})</option>-->
+                <!--    @endforeach-->
+                <!--</select>-->
                 <select id="festival-select">
                     @foreach ($festivals as $festival)
                         <option value="{{ $festival->name }}_{{ $festival->year }}">{{ $festival->name }} {{ $festival->year }}</option>
@@ -55,6 +56,4 @@ document.getElementById('festival-select').addEventListener('change', function()
             </div>
             <input type="submit" value="[保存]"/>
         </form>
-        <div class="back"><a href="/">[戻る]</a>
-        </div>
 </x-app-layout>
