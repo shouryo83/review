@@ -9,6 +9,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SpotifyController;
+use APP\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,15 +37,15 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::group(['middleware' => ['auth']], function(){
-    Route::get('/', [ReviewController::class, 'index'])->name('index');
-    Route::get('/reviews/create', [ReviewController::class, 'create']);
+    Route::get('/', [ReviewController::class, 'index'])->name('review.index');
+    Route::get('/reviews/create', [ReviewController::class, 'create'])->name('review.create');
     Route::get('/dates?{name}', [ReviewController::class, 'getDates']);
     Route::get('/reviews/{review}', [ReviewController::class ,'show'])->name('reviews.show');
     Route::post('/reviews', [ReviewController::class, 'store']);
     Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit']);
     Route::put('/reviews/{review}', [ReviewController::class, 'update']);
     Route::get('/festivals/{festival}', [FestivalController::class, 'index']);
-    Route::get('/user', [UserController::class, 'index']);
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
     Route::delete('/reviews/{review}', [ReviewController::class, 'delete']);
     Route::post('/reviews/{review}/comments', [CommentController::class, 'store']);
     Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');

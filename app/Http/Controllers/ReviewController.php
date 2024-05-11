@@ -28,9 +28,9 @@ class ReviewController extends Controller
     {
         $festivals = Festival::select('name', DB::raw('YEAR(date) as year'))
                         ->groupBy('name', 'year')
-                        ->orderBy('name')
-                        ->orderBy('year')
+                        ->orderBy('date')
                         ->get();
+        // $festivals = $festival->orderBy('date')->get();
         return view('reviews.create', compact('festivals'));
     }
     
