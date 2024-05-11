@@ -26,10 +26,10 @@ class ReviewController extends Controller
     
     public function create(Festival $festival)
     {
-        $festivals = Festival::select('name', DB::raw('YEAR(date) as year'))
-                        ->groupBy('name', 'year')
-                        ->orderBy('date')
-                        ->get();
+        $festivals = Festival::select('id', 'name', DB::raw('YEAR(date) as year'))
+                              ->groupBy('id', 'name', 'year')
+                              ->orderBy('date')
+                              ->get();
         // $festivals = $festival->orderBy('date')->get();
         return view('reviews.create', compact('festivals'));
     }

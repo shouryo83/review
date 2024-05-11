@@ -87,6 +87,18 @@ class FestivalSeeder extends Seeder
                 'date' => '2023-12-31',
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
-        ]);        
+        ]); 
+                DB::table('festivals')->insert([
+                'name' => 'COUNTDOWN JAPAN',
+                'date' => '2023-12-31',
+                'created_at' => new DateTime(),
+                'updated_at' => new DateTime(),
+        ]); 
+                DB::table('festivals')->insert([
+                'name' => 'COUNTDOWN JAPAN',
+                'date' => '2023-12-31',
+                'created_at' => new DateTime(),
+                'updated_at' => new DateTime(),
+        ]); 
     }
 }
