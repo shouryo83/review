@@ -22,10 +22,16 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="festival">
                     参戦したフェス
                 </label>
-                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="festival-select" name="review[festival_id]">
-                    @foreach ($festivals as $festival)
-                        <option value="{{ $festival->id }}">{{ $festival->name }} ({{ $festival->year }})</option>
+                {{-- フェスティバルの名前と年のセレクトボックス --}}
+                <select id="festival-select" class="test">
+                    @foreach ($festivals as $nameYear => $festivalDetails)
+                        <option value="{{ $nameYear }}">{{ $nameYear }}</option>
                     @endforeach
+                </select>
+                
+                {{-- 月日を選択するためのセレクトボックス --}}
+                <select id="festival-date-select" name="review[festival_id]" class="test" disabled>
+                    {{-- JavaScriptでオプションを動的に挿入します --}}
                 </select>
             </div>
             <div class="mb-6">
@@ -47,4 +53,34 @@
             </div>
         </form>
     </div>
+    <script>
+        // ページがロードされたときとセレクトボックスの値が変更されたときに実行される関数
+        async function loadFestivalDates() {
+            const festivalSelect = document.getElementById('festival-select');
+            if (!festivalSelect.value) return;  // 初期値が設定されていない場合は何もしない
+        
+            const selectedOption = festivalSelect.value.split(' (');
+            const festivalName = selectedOption[0];
+            const festivalYear = selectedOption[1].slice(0, -1);  // ")" を削除
+        
+            const dateSelect = document.getElementById('festival-date-select');
+            dateSelect.innerHTML = '';  // セレクトボックスをクリア
+            dateSelect.disabled = true;  // 新しいデータの取得前にセレクトボックスを無効化
+        
+            const response = await fetch(`/festivals/${encodeURIComponent(festivalName)}/${encodeURIComponent(festivalYear)}`);
+            const dates = await response.json();
+        
+            dates.forEach(({ id, date }) => {
+                const option = document.createElement('option');
+                option.value = id;  // オプションの値をフェスティバルのIDに設定
+                option.textContent = new Date(date).toLocaleDateString('ja-JP');  // 日付を "年/月/日" 形式で表示
+                dateSelect.appendChild(option);
+            });
+        
+            dateSelect.disabled = false;  // セレクトボックスを再度有効化
+        }
+        
+        document.addEventListener('DOMContentLoaded', loadFestivalDates);  // DOMContentLoaded イベントで初期読み込み時に実行
+        document.getElementById('festival-select').addEventListener('change', loadFestivalDates);
+    </script>
 </x-app-layout>
