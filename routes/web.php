@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit']);
     Route::put('/reviews/{review}', [ReviewController::class, 'update']);
     Route::get('/festivals/{festival}', [FestivalController::class, 'index']);
+    Route::get('/festivals/{name}/{year}', [FestivalController::class, 'getDatesByYear']);
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
     Route::delete('/reviews/{review}', [ReviewController::class, 'delete']);
     Route::post('/reviews/{review}/comments', [CommentController::class, 'store']);

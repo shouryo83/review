@@ -13,9 +13,6 @@
             @csrf
             @method('PUT')
             <div class="mb-4">
-                <label for="comment" class="block text-gray-700 text-sm font-bold mb-2">
-                    コメント
-                </label>
                 <textarea name="comment" id="comment" cols="50" rows="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="コメントをここに入力してください。">{{ $comment->comment }}</textarea>
                 <p class="text-red-500 text-xs italic">{{ $errors->first('comment') }}</p>
             </div>

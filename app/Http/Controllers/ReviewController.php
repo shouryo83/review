@@ -26,11 +26,12 @@ class ReviewController extends Controller
     
     public function create(Festival $festival)
     {
-        $festivals = Festival::select('name', DB::raw('YEAR(date) as year'))
-                        ->groupBy('name', 'year')
-                        ->orderBy('date')
-                        ->get();
-        // $festivals = $festival->orderBy('date')->get();
+        $festivals = Festival::select('name', 'date')
+            ->orderBy('name') // 名前で並び替え
+            ->get()
+            ->groupBy(function ($item) {
+                return $item->name . ' (' . $item->year . ')';
+            });
         return view('reviews.create', compact('festivals'));
     }
     
@@ -55,8 +56,14 @@ class ReviewController extends Controller
     
     public function edit(Review $review, Festival $festival)
     {
-        $this->authorize('edit', $review);
-        return view('reviews.edit')->with(['review' => $review, 'festivals' => $festival->get()]);
+        $festivals = Festival::select('name', 'date')
+            ->orderBy('name') // 名前で並び替え
+            ->get()
+            ->groupBy(function ($item) {
+                return $item->name . ' (' . $item->year . ')';
+            });
+        return view('reviews.edit', compact('festivals', 'review'));
+        // )->with(['review' => $review, 'festivals' => $festival->get()]);
     }
     
     public function update(ReviewRequest $request, Review $review)

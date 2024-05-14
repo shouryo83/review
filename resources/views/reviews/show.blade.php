@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <div>
-        <button type="button" onClick="history.back()" class="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            戻る
-        </button>
-        <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-            {{ $review->title }}
-        </h2>
+        <div class='flex items-center'>
+          <button type="button" onClick="history.back()" class="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+              戻る
+          </button>
+          <h2 class="font-semibold text-2xl text-gray-800 leading-tight pl-2">
+              {{ $review->title }}
+          </h2>
         </div>
     </x-slot>
 
@@ -16,11 +16,16 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <!-- Review Details -->
                     <div class="review-details space-y-4">
-                        <div class="review_user">
+                        <div class="review_user flex items-center">
                             <p class="font-medium text-lg">投稿者：{{ $review->user->name }}</p>
+                            @can('edit', $review)
+                                <button type="button" class="bg-blue-500 mx-8 text-white font-bold py-1 px-3 rounded">
+                                    <a href="/reviews/{{ $review->id }}/edit">編集</a> 
+                                </button>
+                            @endcan
                         </div>
                         <div class="festival">
-                            <p class="text-md">参戦したフェス：<a href="/festivals/{{ $review->festival_id }}" class="text-blue-600 hover:text-blue-800">{{ $review->festival->name }}({{ $review->festival->date }})</a></p>
+                            <p class="text-md">参戦したフェス：<a href="/festivals/{{ $review->festival_id }}" class="text-blue-600 hover:text-blue-800">{{ $review->festival->name }}({{ $review->festival->date->format('Y-m-d') }})</a></p>
                         </div>
                         <div class="artist">
                             <p class="text-md">目当てのアーティスト：{{ $review->artist }}</p>
@@ -32,10 +37,6 @@
 
                     <!-- Like and Edit Buttons -->
                     <div class="flex items-center space-x-4 mt-4">
-                        @can('edit', $review)
-                            <a href="/reviews/{{ $review->id }}/edit" class="text-blue-600 hover:text-blue-800">編集</a>
-                        @endcan
-
                         <div class='like'>
                             @if($review->is_liked_by_auth_user())
                                 <a href="{{ route('unlike', ['id' => $review->id]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
@@ -58,12 +59,12 @@
                             <div class="comment mb-4 p-4 bg-gray-100 rounded-lg">
                                 <p class="mb-2">{{ $comment->comment }} - <span class="font-medium">投稿者：{{ $comment->user->name }}</span></p>
                                 @can('edit', $comment)
-                                    <div class="flex items-center space-x-2">
-                                        <a href="/comments/{{ $comment->id }}/edit" class="text-blue-600 hover:text-blue-800">コメント編集</a>
+                                    <div class="flex items-center space-x-6">
+                                        <a href="/comments/{{ $comment->id }}/edit" class="text-blue-600 hover:text-blue-800">編集</a>
                                         <form action="/comments/{{ $comment->id }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-500 hover:text-red-700">コメント削除</button>
+                                            <button type="submit" class="text-red-500 hover:text-red-700">削除</button>
                                         </form>
                                     </div>
                                 @endcan

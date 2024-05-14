@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-            {{ __('ロッキングオン主催フェス口コミ') }}
+            {{ __('ロッキング・オン・ジャパン主催 音楽フェス 口コミサイト') }}
         </h2>
     </x-slot>
 
@@ -11,12 +11,29 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     @foreach ($reviews as $review)
                         <div class='reviews mb-8 p-6 bg-gray-100 rounded-lg shadow-md'>
-                            <h2 class="text-lg font-semibold mb-2">
-                                タイトル：<a href="/reviews/{{ $review->id }}" class="text-blue-600 hover:text-blue-800">{{ $review->title }}</a>
-                            </h2>
+                            <div class='flex items-center mb-2'>
+                                <h2 class="text-lg font-semibold">
+                                    タイトル：<a href="/reviews/{{ $review->id }}" class="text-blue-600 hover:text-blue-800">{{ $review->title }}</a>
+                                </h2>
+                                @can('delete', $review)
+                                    <form action="/reviews/{{ $review->id }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" onclick="deleteReview({{ $review->id }})" class="bg-red-600 mx-8 text-white font-bold py-1 px-3 rounded">
+                                            削除
+                                        </button>
+                                        <script>
+                                            function deleteReview(id) 
+                                            {
+                                                return confirm('削除すると復元できません。\n本当に削除しますか？');
+                                            }
+                                        </script>
+                                    </form>
+                                @endcan
+                            </div>
                             <p class='name text-gray-600 mb-1'>投稿者：{{ $review->user->name }}</p>
                             <h2 class="text-sm mb-1">
-                                参戦したフェス：<a href="/festivals/{{ $review->festival->id }}" class="text-blue-600 hover:text-blue-800">{{ $review->festival->name }}({{ $review->festival->date }})</a>
+                                参戦したフェス：<a href="/festivals/{{ $review->festival->id }}" class="text-blue-600 hover:text-blue-800">{{ $review->festival->name }}({{ $review->festival->date->format('Y-m-d') }})</a>
                             </h2>
                             <p class='artist text-gray-600 mb-1'>目当てのアーティスト：{{ $review->artist }}</p>
                             <p class='body text-gray-800 mb-4'>感想：{{ $review->body }}</p>
@@ -37,13 +54,6 @@
                                 <a href="/reviews/{{ $review->id }}" class="text-blue-600 hover:text-blue-800">コメントする</a>
                                 コメント数({{ $review->comments->count() }})
                             </h2>
-                            @can('delete', $review)
-                                <form action="/reviews/{{ $review->id }}" id="form_{{ $review->id }}" method="post" class="mt-4">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" onclick="deleteReview({{ $review->id }})" class="text-red-500 hover:text-red-700">削除</button>
-                                </form>
-                            @endcan
                         </div>
                     @endforeach
 
