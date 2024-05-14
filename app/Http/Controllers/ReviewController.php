@@ -56,8 +56,14 @@ class ReviewController extends Controller
     
     public function edit(Review $review, Festival $festival)
     {
-        $this->authorize('edit', $review);
-        return view('reviews.edit')->with(['review' => $review, 'festivals' => $festival->get()]);
+        $festivals = Festival::select('name', 'date')
+            ->orderBy('name') // 名前で並び替え
+            ->get()
+            ->groupBy(function ($item) {
+                return $item->name . ' (' . $item->year . ')';
+            });
+        return view('reviews.edit', compact('festivals', 'review'));
+        // )->with(['review' => $review, 'festivals' => $festival->get()]);
     }
     
     public function update(ReviewRequest $request, Review $review)

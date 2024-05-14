@@ -1,11 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <button type="button" onClick="history.back()" class="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            戻る
-        </button>
-        <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-           {{ $playlists['name'] }}
-        </h2>
+        <div class='flex items-center'>
+            <button type="button" onClick="history.back()" class="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                戻る
+            </button>
+            <h2 class="font-semibold text-2xl text-gray-800 leading-tight pl-2">
+                {{ $playlists['name'] }}
+            </h2>
+        </div>
     </x-slot>
 
     <div class="container mx-auto px-4 py-8">

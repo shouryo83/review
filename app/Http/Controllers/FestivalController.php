@@ -24,7 +24,7 @@ class FestivalController extends Controller
                                      'date' => $festival->date->format('Y-m-d') // 日付をフォーマット
                                  ];
                              });
-    
+
         return response()->json($festivals);
     }
 }

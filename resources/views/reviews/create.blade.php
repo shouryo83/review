@@ -1,11 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <button type="button" onClick="history.back()" class="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            戻る
-        </button>
-        <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-            投稿作成
-        </h2>
+        <div class='flex items-center'>
+            <button type="button" onClick="history.back()" class="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                戻る
+            </button>
+            <h2 class="font-semibold text-2xl text-gray-800 leading-tight pl-2">
+                投稿作成
+            </h2>
+        </div>
     </x-slot>
 
     <div class="container mx-auto px-4 py-8">
@@ -23,20 +25,21 @@
                     参戦したフェス
                 </label>
                 {{-- フェスティバルの名前と年のセレクトボックス --}}
-                <select id="festival-select" class="test">
-                    @foreach ($festivals as $nameYear => $festivalDetails)
-                        <option value="{{ $nameYear }}">{{ $nameYear }}</option>
-                    @endforeach
-                </select>
-                
+
+            <select id="festival-select" class="test rounded">
+                @foreach ($festivals as $nameYear => $festivalDetails)
+                    <option value="{{ $nameYear }}" {{ old('festival-select') == $nameYear ? 'selected' : '' }}>{{ $nameYear }}</option>
+                @endforeach
+            </select>
                 {{-- 月日を選択するためのセレクトボックス --}}
-                <select id="festival-date-select" name="review[festival_id]" class="test" disabled>
+                <select id="festival-date-select" name="review[festival_id]" class="test rounded" disabled>
                     {{-- JavaScriptでオプションを動的に挿入します --}}
                 </select>
+               
             </div>
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="artist">
-                    お目当てのアーティスト
+                    目当てのアーティスト
                 </label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="artist" type="text" name="review[artist]" placeholder="" value="{{ old('review.artist') }}"/>
                 <p class="text-red-500 text-xs italic">{{ $errors->first('review.artist') }}</p>
@@ -48,8 +51,8 @@
                 <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="body" name="review[body]" rows="5" placeholder="生の演奏は最高でした！">{{ old('review.body') }}</textarea>
                 <p class="text-red-500 text-xs italic">{{ $errors->first('review.body') }}</p>
             </div>
-            <div class="flex items-center justify-between">
-                <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" value="保存"/>
+            <div class="flex justify-center">
+                <input type="submit" value="保存" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
             </div>
         </form>
     </div>

@@ -4,7 +4,7 @@
             戻る
         </button>
         <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-           {{ $festival->name }}({{ $festival->date }})
+           {{ $festival->name }}({{ $festival->date->format('Y-m-d') }})
         </h2>
     </x-slot>
     
@@ -19,7 +19,7 @@
                                 タイトル：<a href="/reviews/{{ $review->id }}">{{ $review->title }}</a>
                             </h2>
                             <h2 class="text-md mb-2">
-                                参戦したフェス：<a href="/festivals/{{ $review->festival->id }}" class="text-blue-600 hover:text-blue-800">{{ $review->festival->name }}({{ $review->festival->date }})</a>
+                                参戦したフェス：{{ $review->festival->name }}({{ $review->festival->date->format('Y-m-d') }})
                             </h2>
                             <p class='artist text-gray-600'>目当てのアーティスト：{{ $review->artist }}</p>
                             <p class='body text-gray-800 my-4'>感想：{{ $review->body }}</p>
@@ -41,11 +41,17 @@
                                 コメント数({{ $review->comments->count() }})
                             </h2>
                             @can('delete', $review)
-                                <form action="/reviews/{{ $review->id }}" id="form_{{ $review->id }}" method="post" class="mt-4">
+                                <form action="/reviews/{{ $review->id }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" onclick="deleteReview({{ $review->id }})" class="text-red-500 hover:text-red-700">削除</button>
+                                    <button type="submit" onclick="deleteReview({{ $review->id }})" class="text-red-500 hover:text-red-700">削除</button>
                                 </form>
+                                <script>
+                                    function deleteReview(id) 
+                                    {
+                                        return confirm('削除すると復元できません。\n本当に削除しますか？');
+                                    }
+                                </script>
                             @endcan
                         </div>
                     @endforeach
