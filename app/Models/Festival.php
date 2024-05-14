@@ -18,7 +18,7 @@ class Festival extends Model
         'date' => 'datetime:Y-m-d', // 確保するために日付形式を指定します。
     ];
     
-    
+  
     public function reviews()
     {
         return $this->hasMany(Review::class);

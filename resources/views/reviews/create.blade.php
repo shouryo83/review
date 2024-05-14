@@ -25,6 +25,7 @@
                     参戦したフェス
                 </label>
                 {{-- フェスティバルの名前と年のセレクトボックス --}}
+
             <select id="festival-select" class="test rounded">
                 @foreach ($festivals as $nameYear => $festivalDetails)
                     <option value="{{ $nameYear }}" {{ old('festival-select') == $nameYear ? 'selected' : '' }}>{{ $nameYear }}</option>
@@ -34,6 +35,7 @@
                 <select id="festival-date-select" name="review[festival_id]" class="test rounded" disabled>
                     {{-- JavaScriptでオプションを動的に挿入します --}}
                 </select>
+               
             </div>
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="artist">
