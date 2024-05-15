@@ -1,11 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <button type="button" onClick="history.back()" class="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            戻る
-        </button>
-        <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-            {{ __('コメント編集') }}
-        </h2>
+        <div class='flex items-center'>
+            <button type="button" onClick="history.back()" class="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">
+                戻る
+            </button>
+            <h2 class="font-semibold text-2xl text-gray-800 leading-tight pl-2">
+                コメント編集
+            </h2>
+        </div>
     </x-slot>
 
     <div class="container mx-auto px-4 py-8">
@@ -16,8 +18,8 @@
                 <textarea name="comment" id="comment" cols="50" rows="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="コメントをここに入力してください。">{{ $comment->comment }}</textarea>
                 <p class="text-red-500 text-xs italic">{{ $errors->first('comment') }}</p>
             </div>
-            <div class="flex items-center justify-between">
-                <input type="submit" value="更新" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <div class="flex justify-center">
+                <input type="submit" value="更新" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
             </div>
         </form>
     </div>

@@ -11,38 +11,36 @@
     </x-slot>
 
     <div class="container mx-auto px-4 py-8">
-        <form action="/reviews" method="POST" class="w-full max-w-xl mx-auto">
+        <form action="/reviews" method="POST" class="w-full max-w-2xl mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             @csrf
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
                     タイトル
                 </label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" name="review[title]" placeholder="初めて参戦しました！" value="{{ old('review.title') }}"/>
-                <p class="text-red-500 text-xs italic">{{ $errors->first('review.title') }}</p>
+                <p class="text-red-500 text-xs italic pt-1.5">{{ $errors->first('review.title') }}</p>
             </div>
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="festival">
                     参戦したフェス
                 </label>
                 {{-- フェスティバルの名前と年のセレクトボックス --}}
-
-            <select id="festival-select" class="test rounded">
-                @foreach ($festivals as $nameYear => $festivalDetails)
-                    <option value="{{ $nameYear }}" {{ old('festival-select') == $nameYear ? 'selected' : '' }}>{{ $nameYear }}</option>
-                @endforeach
-            </select>
+                <select id="festival-select" class="test rounded">
+                    @foreach ($festivals as $nameYear => $festivalDetails)
+                        <option value="{{ $nameYear }}">{{ $nameYear }}</option>
+                    @endforeach
+                </select>
                 {{-- 月日を選択するためのセレクトボックス --}}
                 <select id="festival-date-select" name="review[festival_id]" class="test rounded" disabled>
                     {{-- JavaScriptでオプションを動的に挿入します --}}
                 </select>
-               
             </div>
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="artist">
                     目当てのアーティスト
                 </label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="artist" type="text" name="review[artist]" placeholder="" value="{{ old('review.artist') }}"/>
-                <p class="text-red-500 text-xs italic">{{ $errors->first('review.artist') }}</p>
+                <p class="text-red-500 text-xs italic pt-1.5">{{ $errors->first('review.artist') }}</p>
             </div>
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="body">
@@ -52,7 +50,7 @@
                 <p class="text-red-500 text-xs italic">{{ $errors->first('review.body') }}</p>
             </div>
             <div class="flex justify-center">
-                <input type="submit" value="保存" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                <input type="submit" value="投稿" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
             </div>
         </form>
     </div>

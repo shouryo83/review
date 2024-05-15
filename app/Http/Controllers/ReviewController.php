@@ -27,7 +27,7 @@ class ReviewController extends Controller
     public function create(Festival $festival)
     {
         $festivals = Festival::select('name', 'date')
-            ->orderBy('name') // 名前で並び替え
+            ->orderBy('date') // 日付で並び替え
             ->get()
             ->groupBy(function ($item) {
                 return $item->name . ' (' . $item->year . ')';
@@ -57,7 +57,7 @@ class ReviewController extends Controller
     public function edit(Review $review, Festival $festival)
     {
         $festivals = Festival::select('name', 'date')
-            ->orderBy('name') // 名前で並び替え
+            ->orderBy('date') // 日付で並び替え
             ->get()
             ->groupBy(function ($item) {
                 return $item->name . ' (' . $item->year . ')';
@@ -76,7 +76,6 @@ class ReviewController extends Controller
     
     public function delete(Review $review)
     {
-        $this->authorize('delete', $review);
         $review->delete();
         return redirect('/');
     }
