@@ -29,7 +29,7 @@ class SpotifyController extends Controller
         }
         // dd($playlistDetails);
         // ビューにデータを渡す
-        unset($playlistDetails[0],$playlistDetails[5],$playlistDetails[11]);
+        unset($playlistDetails[0],$playlistDetails[10]);
         krsort($playlistDetails);
         // dd($playlistDetails);
         return view('playlists.index')->with(['playlists' => $playlistDetails]);

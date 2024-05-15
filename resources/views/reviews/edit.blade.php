@@ -5,13 +5,13 @@
                 戻る
             </button>
             <h2 class="font-semibold text-2xl text-gray-800 leading-tight pl-2">
-                {{ __('投稿編集') }}
+                投稿編集
             </h2>
         </div>
     </x-slot>
 
     <div class="container mx-auto px-4 py-8">
-        <form action="/reviews/{{ $review->id }}" method="POST" class="w-full max-w-xl mx-auto">
+        <form action="/reviews/{{ $review->id }}" method="POST" class="w-full max-w-2xl mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             @csrf
             @method('PUT')
             <div class="mb-6">
@@ -19,7 +19,7 @@
                     タイトル
                 </label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" name="review[title]" value="{{ $review->title }}">
-                <p class="text-red-500 text-xs italic">{{ $errors->first('review.title') }}</p>
+                <p class="text-red-500 text-xs italic pt-1.5">{{ $errors->first('review.title') }}</p>
             </div>
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="festival">
@@ -31,7 +31,6 @@
                         <option value="{{ $nameYear }}" {{  $review->festival->name . ' (' . $review->festival->date->format('Y') . ')' == $nameYear ? 'selected' : '' }}>{{ $nameYear }}</option>
                     @endforeach
                 </select>
-                
                 {{-- 月日を選択するためのセレクトボックス --}}
                 <select id="festival-date-select" name="review[festival_id]" class="test rounded" disabled>
                     {{-- JavaScriptでオプションを動的に挿入します --}}
@@ -42,7 +41,7 @@
                     目当てのアーティスト
                 </label>
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="artist" type="text" name="review[artist]" value="{{ $review->artist }}">
-                <p class="text-red-500 text-xs italic">{{ $errors->first('review.artist') }}</p>
+                <p class="text-red-500 text-xs italic pt-1.5">{{ $errors->first('review.artist') }}</p>
             </div>
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="body">

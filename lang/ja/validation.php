@@ -257,6 +257,7 @@ return [
         'review.title' => 'タイトル',
         'review.artist' => '目当てのアーティスト',
         'review.body' => '感想',
+        'comment' => 'コメント',
     ],
 
 ];

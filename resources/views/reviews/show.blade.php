@@ -19,7 +19,7 @@
                         <div class="review_user flex items-center">
                             <p class="font-medium text-lg">投稿者：{{ $review->user->name }}</p>
                             @can('edit', $review)
-                                <button type="button" class="bg-blue-500 mx-8 text-white font-bold py-1 px-3 rounded">
+                                <button type="button" class="text-sm bg-blue-500 mx-5 text-white font-bold py-1 px-2 rounded">
                                     <a href="/reviews/{{ $review->id }}/edit">編集</a> 
                                 </button>
                             @endcan
@@ -57,14 +57,24 @@
                         <h3 class="font-semibold text-xl mb-4">コメント</h3>
                         @forelse ($comments as $comment)
                             <div class="comment mb-4 p-4 bg-gray-100 rounded-lg">
-                                <p class="mb-2">{{ $comment->comment }} - <span class="font-medium">投稿者：{{ $comment->user->name }}</span></p>
+                                <p class="mb-2 text-base">{{ $comment->comment }} ：{{ $comment->user->name }}</span></p>
                                 @can('edit', $comment)
-                                    <div class="flex items-center space-x-6">
-                                        <a href="/comments/{{ $comment->id }}/edit" class="text-blue-600 hover:text-blue-800">編集</a>
-                                        <form action="/comments/{{ $comment->id }}" method="POST">
+                                    <div class="flex items-center space-x-6"> 
+                                    <button type="button" class="text-sm bg-white text-blue-500 font-bold py-1 px-2 rounded">
+                                        <a href="/comments/{{ $comment->id }}/edit">編集</a> 
+                                    </button>
+                                        <form action="/comments/{{ $comment->id }}" id="form_{{ $comment->id }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-500 hover:text-red-700">削除</button>
+                                            <button type="button" onclick="deleteComment({{ $comment->id }})" class="text-sm bg-white text-red-500 font-bold py-1 px-2 rounded">削除</button>
+                                            <script>
+                                                function deleteComment(id){
+                                                    'use strict'
+                                                    if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
+                                                        document.getElementById(`form_${id}`).submit();
+                                                    }
+                                                }
+                                            </script>
                                         </form>
                                     </div>
                                 @endcan
